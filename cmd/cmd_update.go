@@ -24,6 +24,7 @@ func handleUpdate(cmd *cobra.Command, args []string) {
 		fmt.Println(
 			ui.ErrorText(errors.New("invalid media id. please provide a valid one")),
 		)
+		return
 	}
 
 	var scoreFloat *float64
