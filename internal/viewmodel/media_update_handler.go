@@ -274,7 +274,12 @@ func HandleMediaUpdate(params MediaUpdateParams) error {
 		return err
 	}
 
-	status := internal.MediaStatusEnumMapper(params.Status)
+	// only map status when user explicitly provided --status
+	var status string
+	if params.Status != "" {
+		status = internal.MediaStatusEnumMapper(params.Status)
+	}
+
 	if status == "COMPLETED" {
 		if *total != 0 && accumulatedProgress < *total {
 			var markAsCompleted string
@@ -319,7 +324,9 @@ func HandleMediaUpdate(params MediaUpdateParams) error {
 		payload := map[string]any{
 			"id":       params.MediaId,
 			"progress": accumulatedProgress,
-			"status":   status,
+		}
+		if status != "" {
+			payload["status"] = status
 		}
 		if len(notes) > 0 {
 			payload["notes"] = notes
