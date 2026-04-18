@@ -242,8 +242,7 @@ func handleMediaCompletedAction(params MediaUpdateParams, progress int) error {
 func HandleMediaUpdate(params MediaUpdateParams) error {
 	// route 1
 	if params.IsNewAddition {
-		handleNewAdditionAction(params)
-		return nil
+		return handleNewAdditionAction(params)
 	}
 
 	
