@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/CosmicPredator/chibi/internal"
+	"github.com/CosmicPredator/chibi/internal/kvdb"
 	_ "modernc.org/sqlite"
 )
 
@@ -15,7 +16,7 @@ type Cache struct {
 }
 
 func Open() (*Cache, error) {
-	dbDirPath, err := internal.ResolveDataPath()
+	dbDirPath, err := kvdb.DataPath()
 	if err != nil {
 		return nil, err
 	}

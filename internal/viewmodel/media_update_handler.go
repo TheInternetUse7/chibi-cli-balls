@@ -201,15 +201,20 @@ func handleMediaCompletedAction(params MediaUpdateParams, progress int) error {
 	// perform API mutation request
 	var response *responses.MediaUpdateResponse
 	err = ui.ActionSpinner("Marking as completed...", func(ctx context.Context) error {
-		response, err = api.UpdateMediaEntry(map[string]any{
+		payload := map[string]any{
 			"id":       params.MediaId,
 			"progress": progress,
-			"score":    scoreFloat,
-			"notes":    notes,
 			"cDate":    completedDate.Day(),
 			"cMonth":   int(completedDate.Month()),
 			"cYear":    completedDate.Year(),
-		})
+		}
+		if scoreFloat > 0 {
+			payload["score"] = scoreFloat
+		}
+		if len(notes) > 0 {
+			payload["notes"] = notes
+		}
+		response, err = api.UpdateMediaEntry(payload)
 		return err
 	})
 	if err != nil {
@@ -315,7 +320,9 @@ func HandleMediaUpdate(params MediaUpdateParams) error {
 			"id":       params.MediaId,
 			"progress": accumulatedProgress,
 			"status":   status,
-			"notes":    notes,
+		}
+		if len(notes) > 0 {
+			payload["notes"] = notes
 		}
 		if params.Score > 0 {
 			payload["score"] = params.Score

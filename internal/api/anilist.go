@@ -152,7 +152,7 @@ func GetUserProfile() (*responses.Profile, error) {
 }
 
 func UpdateMediaEntry(params map[string]any) (*responses.MediaUpdateResponse, error) {
-	response, err := queryAnilist(mediaEntryUpdateMutation, params)
+	response, err := queryAnilist(BuildMediaEntryUpdateMutation(params), params)
 	if err != nil {
 		return nil, err
 	}
