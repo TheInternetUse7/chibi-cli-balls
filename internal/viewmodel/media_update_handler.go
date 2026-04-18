@@ -204,6 +204,7 @@ func handleMediaCompletedAction(params MediaUpdateParams, progress int) error {
 		payload := map[string]any{
 			"id":       params.MediaId,
 			"progress": progress,
+			"status":   "COMPLETED",
 			"cDate":    completedDate.Day(),
 			"cMonth":   int(completedDate.Month()),
 			"cYear":    completedDate.Year(),

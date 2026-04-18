@@ -89,6 +89,7 @@ const mediaInfoQuery = `query($id: Int) {
   Media(id: $id) {
     id
     idMal
+    type
     title {
       english
       romaji
