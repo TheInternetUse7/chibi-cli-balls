@@ -19,9 +19,13 @@ func HandleLogout() error {
 	}
 	defer db.Close()
 	
-	err = db.Delete(context.TODO(), "auth_token")
-	err = db.Delete(context.TODO(), "user_id")
-	err = db.Delete(context.TODO(), "user_name")
+	err1 := db.Delete(context.TODO(), "auth_token")
+	err2 := db.Delete(context.TODO(), "user_id")
+	err3 := db.Delete(context.TODO(), "user_name")
+
+	if err1 != nil || err2 != nil || err3 != nil {
+		return fmt.Errorf("errors occurred during logout: token=%v userId=%v userName=%v", err1, err2, err3)
+	}
 	fmt.Println(ui.SuccessText("Logged out successfully!"))
 	return nil
 }

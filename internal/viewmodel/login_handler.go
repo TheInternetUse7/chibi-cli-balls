@@ -27,12 +27,12 @@ func HandleLogin() error {
 	if err != nil {
 		return err
 	}
+	defer db.Close()
 	
 	err = db.Set(context.TODO(), "auth_token", []byte(loginUI.GetAuthToken()))
 	if err != nil {
 		return err
 	}
-	defer db.Close()
 
 	// gets user profile details from api and saves
 	// the username and ID to db
