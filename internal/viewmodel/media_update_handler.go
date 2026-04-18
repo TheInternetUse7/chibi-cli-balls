@@ -34,7 +34,7 @@ func getCurrentProgress(userId int, mediaId int) (current int, total *int, err e
 	err = ui.ActionSpinner("Getting your list...", func(ctx context.Context) error {
 		mediaList, err = api.GetMediaList(
 			userId,
-			[]string{"CURRENT", "REPEATING"},
+			[]string{"CURRENT", "REPEATING", "PLANNING", "COMPLETED", "DROPPED", "PAUSED"},
 		)
 		return err
 	})
