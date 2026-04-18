@@ -281,7 +281,7 @@ func HandleMediaUpdate(params MediaUpdateParams) error {
 	}
 
 	if status == "COMPLETED" {
-		if *total != 0 && accumulatedProgress < *total {
+		if total != nil && *total != 0 && accumulatedProgress < *total {
 			var markAsCompleted string
 			fmt.Print("Accumulated progress is less than total episodes / chapters. Mark as media completed (y/N)? ")
 			fmt.Scan(&markAsCompleted)
